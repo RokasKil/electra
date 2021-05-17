@@ -22,7 +22,7 @@ from __future__ import print_function
 import json
 import pickle
 import sys
-
+import os
 import tensorflow.compat.v1 as tf
 
 
@@ -32,8 +32,8 @@ def load_json(path):
 
 
 def write_json(o, path):
-  if "/" in path:
-    tf.io.gfile.makedirs(path.rsplit("/", 1)[0])
+  if os.path.sep in path:
+    tf.io.gfile.makedirs(path.rsplit(os.path.sep, 1)[0])
   with tf.io.gfile.GFile(path, "w") as f:
     json.dump(o, f)
 
@@ -44,8 +44,8 @@ def load_pickle(path):
 
 
 def write_pickle(o, path):
-  if "/" in path:
-    tf.io.gfile.makedirs(path.rsplit("/", 1)[0])
+  if os.path.sep in path:
+    tf.io.gfile.makedirs(path.rsplit(os.path.sep, 1)[0])
   with tf.io.gfile.GFile(path, "wb") as f:
     pickle.dump(o, f, -1)
 

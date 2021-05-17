@@ -102,7 +102,7 @@ class FinetuningConfig(object):
     # default locations of data files
     self.data_dir = data_dir
     pretrained_model_dir = os.path.join(data_dir, "models", model_name)
-    self.raw_data_dir = os.path.join(data_dir, "finetuning_data", "{:}").format
+    self.raw_data_dir = lambda s : os.path.join(data_dir, "finetuning_data", s)
     self.vocab_file = os.path.join(pretrained_model_dir, "vocab.txt")
     if not tf.io.gfile.exists(self.vocab_file):
       self.vocab_file = os.path.join(self.data_dir, "vocab.txt")
@@ -117,15 +117,13 @@ class FinetuningConfig(object):
     self.results_pkl = os.path.join(results_dir,
                                     task_names_str + "_results.pkl")
     qa_topdir = os.path.join(results_dir, task_names_str + "_qa")
-    self.qa_eval_file = os.path.join(qa_topdir, "{:}_eval.json").format
-    self.qa_preds_file = os.path.join(qa_topdir, "{:}_preds.json").format
-    self.qa_na_file = os.path.join(qa_topdir, "{:}_null_odds.json").format
+    self.qa_eval_file = lambda s : os.path.join(qa_topdir, f"{s}_eval.json")
+    self.qa_preds_file = lambda s : os.path.join(qa_topdir, f"{s}_preds.json")
+    self.qa_na_file = lambda s : os.path.join(qa_topdir, f"{s}_null_odds.json")
     self.preprocessed_data_dir = os.path.join(
         pretrained_model_dir, "finetuning_tfrecords",
         task_names_str + "_tfrecords" + ("-debug" if self.debug else ""))
-    self.test_predictions = os.path.join(
-        pretrained_model_dir, "test_predictions",
-        "{:}_{:}_{:}_predictions.pkl").format
+    self.test_predictions = lambda a, b, c: os.path.join(pretrained_model_dir, "test_predictions", f"{a}_{b}_{c}_predictions.pkl")
 
     # update defaults with passed-in hyperparameters
     self.update(kwargs)

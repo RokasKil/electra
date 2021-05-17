@@ -78,7 +78,7 @@ class Preprocessor(object):
         examples += task_examples
       if is_training:
         random.shuffle(examples)
-      utils.mkdir(tfrecords_path.rsplit("/", 1)[0])
+      utils.mkdir(tfrecords_path.rsplit(os.path.sep, 1)[0])
       n_examples = self.serialize_examples(
           examples, is_training, tfrecords_path, batch_size)
       utils.write_json({"n_examples": n_examples}, metadata_path)

@@ -32,7 +32,7 @@ from model import modeling
 from model import optimization
 from util import training_utils
 from util import utils
-
+import os
 
 class FinetuningModel(object):
   """Finetuning model with support for multi-task training."""
@@ -229,7 +229,7 @@ class ModelRunner(object):
 def write_results(config: configure_finetuning.FinetuningConfig, results):
   """Write evaluation metrics to disk."""
   utils.log("Writing results to", config.results_txt)
-  utils.mkdir(config.results_txt.rsplit("/", 1)[0])
+  utils.mkdir(config.results_txt.rsplit(os.path.sep, 1)[0])
   utils.write_pickle(results, config.results_pkl)
   with tf.io.gfile.GFile(config.results_txt, "w") as f:
     results_str = ""
