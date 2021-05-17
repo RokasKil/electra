@@ -201,7 +201,7 @@ class ModelRunner(object):
         scorer.update(r[task.name])
     
     with open("out.txt", "w") as f:
-      f.write(l)
+      f.write(str(l))
     if return_results:
       utils.log(task.name + ": " + scorer.results_str())
       utils.log()
