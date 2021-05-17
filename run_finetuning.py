@@ -195,14 +195,13 @@ class ModelRunner(object):
     l = []
     scorer = task.get_scorer()
     for r in results:
-      print(r)
       l += [r]
       if r["task_id"] != len(self._tasks):  # ignore padding examples
         r = utils.nest_dict(r, self._config.task_names)
         scorer.update(r[task.name])
     
     with open("out.txt", "w") as f:
-      f.write(json.dumps(l))
+      f.write(l)
     if return_results:
       utils.log(task.name + ": " + scorer.results_str())
       utils.log()
