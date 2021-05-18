@@ -298,6 +298,8 @@ def run_finetuning(config: configure_finetuning.FinetuningConfig):
                 preds[q] = ""
             utils.write_json(preds, config.test_predictions(
                 task.name, "test", trial))
+            print("tset", config.test_predictions(
+                task.name, "test", trial))
           else:
             utils.log("Skipping task", task.name,
                       "- writing predictions is not supported for this task")
